@@ -73,16 +73,16 @@ When delegating a task to a sub-agent, you MUST format the dispatch using this s
 Before taking any action, classify the user request into one of three buckets:
 
 1. **Inline Execution (Small Tasks):**
-   - **Criteria:** Single-file edits, typos, minor refactorings, adding missing imports, simple config tweaks, or tasks where explaining the context to a sub-agent uses more tokens than writing the solution directly.
-   - **Action:** DO NOT delegate. Execute directly as Orchestrator.
+  - **Criteria:** Single-file edits, typos, minor refactorings, adding missing imports, simple config tweaks, or tasks where explaining the context to a sub-agent uses more tokens than writing the solution directly.
+  - **Action:** DO NOT delegate. Execute directly as Orchestrator.
 
 2. **Delegation Range (Optimal Tasks):**
-   - **Criteria:** Isolated features, specific component creations, module implementations, or writing unit tests for a specific file.
-   - **Action:** Delegate to the appropriate sub-agent using the `Delegation Protocol`.
+  - **Criteria:** Isolated features, specific component creations, module implementations, or writing unit tests for a specific file.
+  - **Action:** Delegate to the appropriate sub-agent using the `Delegation Protocol`.
 
 3. **Decomposition Required (Heavy Tasks):**
-   - **Criteria:** Multi-file features, full-stack endpoints, complex refactoring, or broad architecture setups.
-   - **Action:** DO NOT delegate as a single task (to avoid model hallucinations/omissions). Break the feature down into sequential, atomic sub-tasks (Bucket 2) and dispatch them one by one.
+  - **Criteria:** Multi-file features, full-stack endpoints, complex refactoring, or broad architecture setups.
+  - **Action:** DO NOT delegate as a single task (to avoid model hallucinations/omissions). Break the feature down into sequential, atomic sub-tasks (Bucket 2) and dispatch them one by one.
 
 ## Skills
 
