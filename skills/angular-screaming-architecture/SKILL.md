@@ -107,10 +107,11 @@ export type { Invoice } from "./models/invoice.interface";
 
 ```
 
-2. **Strict Encapsulation:** Other features must only import from `@app/features/[domain]`, never directly deep-importing internal subfolders.
+2. **Strict Encapsulation:** Other features must only import from `@[domain]` (e.g., `@billing`), never directly deep-importing internal subfolders.
 3. **Domain Independence:** A feature folder should avoid importing directly from another feature folder. Cross-feature communication happens via `pages/` composition, shared services, or event buses.
-4. **Modern Angular Standards (v19-v22+):**
+4. **Angular v19+ Standards:**
 * Use **Zoneless** execution (avoid manual `zone.js` triggers).
 * Rely on **Control Flow** syntax (`@if`, `@for`, `@defer`) in templates.
-* Prefer **Signal Forms** over legacy Reactive Forms when building forms.
 * Favor **`httpResource`** or **`rxResource`** for async data fetching instead of heavy manual RxJS subscriptions.
+5. **Angular 22+ Standards:**
+* Prefer **Signal Forms** over legacy Reactive Forms when building forms.
