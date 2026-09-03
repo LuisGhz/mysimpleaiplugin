@@ -14,5 +14,6 @@
   "repository": "https://github.com/luisghtz/mysimpleaiplugin",
   "license": "MIT",
   "skills": "skills/",
-  "agents": "agents/"
+  "agents": "agents/",
+  "mcpServers": "./mcp.json"
 }
