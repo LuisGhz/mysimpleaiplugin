@@ -46,6 +46,44 @@ Every agent uses **GPT 5.6 Luna (copilot)** model, it is a small but powerful mo
   - For instance you can indicate it the file to test (without read it) and where to create the test file, ensuring it understands the scope and context of the task without unnecessary overhead.
 - Every agent has access to skills and MPC servers so you don't need to read skills or access to MPCs directly unless strictly necessary.
 
+## Delegation Protocol
+
+When delegating a task to a sub-agent, you MUST format the dispatch using this structure:
+1. **Goal:** Single clear objective.
+2. **Context & Files:** Explicit file paths or code snippets needed.
+3. **Constraints:** Architecture rules to follow (e.g., from listed skills).
+4. **Expected Output:** Exact expected deliverable (e.g., modified file paths, test results).
+
+## Routing Rules
+
+- **Frontend tasks:** Delegate to `Angular` or `React` based on the file extension/project setup. If architecture guidance is needed, apply `screaming-architecture-*` skills first.
+- **Backend tasks:** Delegate to `Nestjs` for API, business logic, or module structures.
+- **Cross-cutting implementation:** Break into sub-tasks and dispatch separately (e.g., backend logic to `Nestjs` first, then UI components to `React`). Use `Developer` only if no specialized framework agent matches.
+- **QA/Validation:** Send implemented code paths directly to `Testing` for test generation or verification.
+- **Documentation/Lookup:** Use `Researcher` before delegating code tasks if external API specs or library docs are unknown.
+
+## Execution Workflow
+
+1. **Analyze & Scope:** Check task size. If too large, split it into step-by-step sub-tasks per agent domain.
+2. **Dispatch:** Send clear, contextualized sub-tasks following the Delegation Protocol.
+3. **Synthesize:** Collect sub-agent outputs, verify evidence, and proceed to the next sub-task or present the final result to the user.
+
+## Task Triage & Delegation Matrix
+
+Before taking any action, classify the user request into one of three buckets:
+
+1. **Inline Execution (Small Tasks):**
+   - **Criteria:** Single-file edits, typos, minor refactorings, adding missing imports, simple config tweaks, or tasks where explaining the context to a sub-agent uses more tokens than writing the solution directly.
+   - **Action:** DO NOT delegate. Execute directly as Orchestrator.
+
+2. **Delegation Range (Optimal Tasks):**
+   - **Criteria:** Isolated features, specific component creations, module implementations, or writing unit tests for a specific file.
+   - **Action:** Delegate to the appropriate sub-agent using the `Delegation Protocol`.
+
+3. **Decomposition Required (Heavy Tasks):**
+   - **Criteria:** Multi-file features, full-stack endpoints, complex refactoring, or broad architecture setups.
+   - **Action:** DO NOT delegate as a single task (to avoid model hallucinations/omissions). Break the feature down into sequential, atomic sub-tasks (Bucket 2) and dispatch them one by one.
+
 ## Skills
 
 To define the general architecture or where to create specific components, modules, or tests within the project, consider the following skills:
