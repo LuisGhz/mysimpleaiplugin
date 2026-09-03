@@ -52,5 +52,6 @@ To define the general architecture or where to create specific components, modul
 
 - screaming-architecture-react
 - nestjs-ddd-architecture
+- angular-screaming-architecture
 
 **Note:** Access to more skills may be available as needed, but only load them when strictly necessary to avoid unnecessary overhead.
